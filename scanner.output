@@ -1,0 +1,1808 @@
+Terminals unused in grammar
+
+   ENDL
+   MISS
+   ILLEGAL
+   FLOAT
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: Classes Statements
+
+    2 Classes: %empty
+    3        | Classes Class
+
+    4 Class: Class_Signature Class_Body
+
+    5 Class_Signature: CLASS Ident LP Formal_Args RP Extends_Ident
+    6                | CLASS Ident LP Formal_Args RP
+
+    7 Formal_Args: %empty
+    8            | Formal_Args_First Formal_Args_Idents
+
+    9 Formal_Args_First: Ident COLON Ident
+
+   10 Formal_Args_Idents: %empty
+   11                   | Formal_Args_Idents Formal_Args_Ident
+
+   12 Formal_Args_Ident: COMMA Ident COLON Ident
+
+   13 Extends_Ident: EXTENDS Ident
+
+   14 Class_Body: LB Class_Body_Content RB
+
+   15 Class_Body_Content: Statements Methods
+
+   16 Statements: %empty
+   17           | Statements Statement
+
+   18 Statement_Block: LB Statements RB
+
+   19 Statement: IF R_Expr Statement_Block Elifs Else
+   20          | IF R_Expr Statement_Block Elifs
+   21          | WHILE R_Expr Statement_Block
+   22          | L_Expr COLON Ident GETS R_Expr SEMICOLON
+   23          | L_Expr GETS R_Expr SEMICOLON
+   24          | R_Expr SEMICOLON
+   25          | RETURN R_Expr SEMICOLON
+   26          | RETURN SEMICOLON
+
+   27 Elifs: %empty
+   28      | Elifs Elif
+
+   29 Elif: ELIF R_Expr Statement_Block
+
+   30 Else: ELSE Statement_Block
+
+   31 Methods: %empty
+   32        | Methods Method
+
+   33 Method: DEF Ident LP Formal_Args RP COLON Ident Statement_Block
+   34       | DEF Ident LP Formal_Args RP Statement_Block
+
+   35 L_Expr: Ident
+   36       | R_Expr DOT Ident
+
+   37 R_Expr: STRING_LIT
+   38       | INT_LIT
+   39       | L_Expr
+   40       | R_Expr PLUS R_Expr
+   41       | R_Expr MINUS R_Expr
+   42       | R_Expr TIMES R_Expr
+   43       | R_Expr DIVIDE R_Expr
+   44       | LP R_Expr RP
+   45       | R_Expr EQUALS R_Expr
+   46       | R_Expr ATMOST R_Expr
+   47       | R_Expr LESS R_Expr
+   48       | R_Expr ATLEAST R_Expr
+   49       | R_Expr MORE R_Expr
+   50       | R_Expr AND R_Expr
+   51       | R_Expr OR R_Expr
+   52       | NOT R_Expr
+   53       | R_Expr DOT Ident LP Actual_Args RP
+   54       | Ident LP Actual_Args RP
+
+   55 Actual_Args: %empty
+   56            | R_Expr R_Exprs
+
+   57 R_Exprs: %empty
+   58        | R_Exprs COMMA R_Expr
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+EXTENDS (258) 13
+CLASS (259) 5 6
+WHILE (260) 21
+IF (261) 19 20
+ELSE (262) 30
+ELIF (263) 29
+RETURN (264) 25 26
+DEF (265) 33 34
+ENDL (266)
+COLON (267) 9 12 22 33
+SEMICOLON (268) 22 23 24 25 26
+LP (269) 5 6 33 34 44 53 54
+RP (270) 5 6 33 34 44 53 54
+LB (271) 14 18
+RB (272) 14 18
+DOT (273) 36 53
+COMMA (274) 12 58
+GETS (275) 22 23
+MISS (276)
+ILLEGAL (277)
+AND (278) 50
+OR (279) 51
+NOT (280) 52
+ATMOST (281) 46
+MORE (282) 49
+ATLEAST (283) 48
+LESS (284) 47
+PLUS (285) 40
+MINUS (286) 41
+TIMES (287) 42
+DIVIDE (288) 43
+EQUALS (289) 45
+INT_LIT (290) 38
+FLOAT (291)
+STRING_LIT (292) 37
+Ident (293) 5 6 9 12 13 22 33 34 35 36 53 54
+
+
+Nonterminals, with rules where they appear
+
+$accept (39)
+    on left: 0
+Program (40)
+    on left: 1, on right: 0
+Classes (41)
+    on left: 2 3, on right: 1 3
+Class (42)
+    on left: 4, on right: 3
+Class_Signature (43)
+    on left: 5 6, on right: 4
+Formal_Args (44)
+    on left: 7 8, on right: 5 6 33 34
+Formal_Args_First (45)
+    on left: 9, on right: 8
+Formal_Args_Idents (46)
+    on left: 10 11, on right: 8 11
+Formal_Args_Ident (47)
+    on left: 12, on right: 11
+Extends_Ident (48)
+    on left: 13, on right: 5
+Class_Body (49)
+    on left: 14, on right: 4
+Class_Body_Content (50)
+    on left: 15, on right: 14
+Statements (51)
+    on left: 16 17, on right: 1 15 17 18
+Statement_Block (52)
+    on left: 18, on right: 19 20 21 29 30 33 34
+Statement (53)
+    on left: 19 20 21 22 23 24 25 26, on right: 17
+Elifs (54)
+    on left: 27 28, on right: 19 20 28
+Elif (55)
+    on left: 29, on right: 28
+Else (56)
+    on left: 30, on right: 19
+Methods (57)
+    on left: 31 32, on right: 15 32
+Method (58)
+    on left: 33 34, on right: 32
+L_Expr (59)
+    on left: 35 36, on right: 22 23 39
+R_Expr (60)
+    on left: 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54,
+    on right: 19 20 21 22 23 24 25 29 36 40 41 42 43 44 45 46 47 48
+    49 50 51 52 53 56 58
+Actual_Args (61)
+    on left: 55 56, on right: 53 54
+R_Exprs (62)
+    on left: 57 58, on right: 56 58
+
+
+State 0
+
+    0 $accept: . Program $end
+
+    $default  reduce using rule 2 (Classes)
+
+    Program  go to state 1
+    Classes  go to state 2
+
+
+State 1
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 Program: Classes . Statements
+    3 Classes: Classes . Class
+
+    CLASS  shift, and go to state 4
+
+    $default  reduce using rule 16 (Statements)
+
+    Class            go to state 5
+    Class_Signature  go to state 6
+    Statements       go to state 7
+
+
+State 3
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+State 4
+
+    5 Class_Signature: CLASS . Ident LP Formal_Args RP Extends_Ident
+    6                | CLASS . Ident LP Formal_Args RP
+
+    Ident  shift, and go to state 8
+
+
+State 5
+
+    3 Classes: Classes Class .
+
+    $default  reduce using rule 3 (Classes)
+
+
+State 6
+
+    4 Class: Class_Signature . Class_Body
+
+    LB  shift, and go to state 9
+
+    Class_Body  go to state 10
+
+
+State 7
+
+    1 Program: Classes Statements .
+   17 Statements: Statements . Statement
+
+    WHILE       shift, and go to state 11
+    IF          shift, and go to state 12
+    RETURN      shift, and go to state 13
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    $default  reduce using rule 1 (Program)
+
+    Statement  go to state 19
+    L_Expr     go to state 20
+    R_Expr     go to state 21
+
+
+State 8
+
+    5 Class_Signature: CLASS Ident . LP Formal_Args RP Extends_Ident
+    6                | CLASS Ident . LP Formal_Args RP
+
+    LP  shift, and go to state 22
+
+
+State 9
+
+   14 Class_Body: LB . Class_Body_Content RB
+
+    $default  reduce using rule 16 (Statements)
+
+    Class_Body_Content  go to state 23
+    Statements          go to state 24
+
+
+State 10
+
+    4 Class: Class_Signature Class_Body .
+
+    $default  reduce using rule 4 (Class)
+
+
+State 11
+
+   21 Statement: WHILE . R_Expr Statement_Block
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 26
+
+
+State 12
+
+   19 Statement: IF . R_Expr Statement_Block Elifs Else
+   20          | IF . R_Expr Statement_Block Elifs
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 27
+
+
+State 13
+
+   25 Statement: RETURN . R_Expr SEMICOLON
+   26          | RETURN . SEMICOLON
+
+    SEMICOLON   shift, and go to state 28
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 29
+
+
+State 14
+
+   44 R_Expr: LP . R_Expr RP
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 30
+
+
+State 15
+
+   52 R_Expr: NOT . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 31
+
+
+State 16
+
+   38 R_Expr: INT_LIT .
+
+    $default  reduce using rule 38 (R_Expr)
+
+
+State 17
+
+   37 R_Expr: STRING_LIT .
+
+    $default  reduce using rule 37 (R_Expr)
+
+
+State 18
+
+   35 L_Expr: Ident .
+   54 R_Expr: Ident . LP Actual_Args RP
+
+    LP  shift, and go to state 32
+
+    $default  reduce using rule 35 (L_Expr)
+
+
+State 19
+
+   17 Statements: Statements Statement .
+
+    $default  reduce using rule 17 (Statements)
+
+
+State 20
+
+   22 Statement: L_Expr . COLON Ident GETS R_Expr SEMICOLON
+   23          | L_Expr . GETS R_Expr SEMICOLON
+   39 R_Expr: L_Expr .
+
+    COLON  shift, and go to state 33
+    GETS   shift, and go to state 34
+
+    $default  reduce using rule 39 (R_Expr)
+
+
+State 21
+
+   24 Statement: R_Expr . SEMICOLON
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    SEMICOLON  shift, and go to state 35
+    DOT        shift, and go to state 36
+    AND        shift, and go to state 37
+    OR         shift, and go to state 38
+    ATMOST     shift, and go to state 39
+    MORE       shift, and go to state 40
+    ATLEAST    shift, and go to state 41
+    LESS       shift, and go to state 42
+    PLUS       shift, and go to state 43
+    MINUS      shift, and go to state 44
+    TIMES      shift, and go to state 45
+    DIVIDE     shift, and go to state 46
+    EQUALS     shift, and go to state 47
+
+
+State 22
+
+    5 Class_Signature: CLASS Ident LP . Formal_Args RP Extends_Ident
+    6                | CLASS Ident LP . Formal_Args RP
+
+    Ident  shift, and go to state 48
+
+    $default  reduce using rule 7 (Formal_Args)
+
+    Formal_Args        go to state 49
+    Formal_Args_First  go to state 50
+
+
+State 23
+
+   14 Class_Body: LB Class_Body_Content . RB
+
+    RB  shift, and go to state 51
+
+
+State 24
+
+   15 Class_Body_Content: Statements . Methods
+   17 Statements: Statements . Statement
+
+    WHILE       shift, and go to state 11
+    IF          shift, and go to state 12
+    RETURN      shift, and go to state 13
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    $default  reduce using rule 31 (Methods)
+
+    Statement  go to state 19
+    Methods    go to state 52
+    L_Expr     go to state 20
+    R_Expr     go to state 21
+
+
+State 25
+
+   39 R_Expr: L_Expr .
+
+    $default  reduce using rule 39 (R_Expr)
+
+
+State 26
+
+   21 Statement: WHILE R_Expr . Statement_Block
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    LB       shift, and go to state 53
+    DOT      shift, and go to state 36
+    AND      shift, and go to state 37
+    OR       shift, and go to state 38
+    ATMOST   shift, and go to state 39
+    MORE     shift, and go to state 40
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    Statement_Block  go to state 54
+
+
+State 27
+
+   19 Statement: IF R_Expr . Statement_Block Elifs Else
+   20          | IF R_Expr . Statement_Block Elifs
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    LB       shift, and go to state 53
+    DOT      shift, and go to state 36
+    AND      shift, and go to state 37
+    OR       shift, and go to state 38
+    ATMOST   shift, and go to state 39
+    MORE     shift, and go to state 40
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    Statement_Block  go to state 55
+
+
+State 28
+
+   26 Statement: RETURN SEMICOLON .
+
+    $default  reduce using rule 26 (Statement)
+
+
+State 29
+
+   25 Statement: RETURN R_Expr . SEMICOLON
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    SEMICOLON  shift, and go to state 56
+    DOT        shift, and go to state 36
+    AND        shift, and go to state 37
+    OR         shift, and go to state 38
+    ATMOST     shift, and go to state 39
+    MORE       shift, and go to state 40
+    ATLEAST    shift, and go to state 41
+    LESS       shift, and go to state 42
+    PLUS       shift, and go to state 43
+    MINUS      shift, and go to state 44
+    TIMES      shift, and go to state 45
+    DIVIDE     shift, and go to state 46
+    EQUALS     shift, and go to state 47
+
+
+State 30
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   44       | LP R_Expr . RP
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    RP       shift, and go to state 57
+    DOT      shift, and go to state 36
+    AND      shift, and go to state 37
+    OR       shift, and go to state 38
+    ATMOST   shift, and go to state 39
+    MORE     shift, and go to state 40
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+
+State 31
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   52       | NOT R_Expr .
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT      shift, and go to state 36
+    ATMOST   shift, and go to state 39
+    MORE     shift, and go to state 40
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    $default  reduce using rule 52 (R_Expr)
+
+
+State 32
+
+   54 R_Expr: Ident LP . Actual_Args RP
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    $default  reduce using rule 55 (Actual_Args)
+
+    L_Expr       go to state 25
+    R_Expr       go to state 58
+    Actual_Args  go to state 59
+
+
+State 33
+
+   22 Statement: L_Expr COLON . Ident GETS R_Expr SEMICOLON
+
+    Ident  shift, and go to state 60
+
+
+State 34
+
+   23 Statement: L_Expr GETS . R_Expr SEMICOLON
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 61
+
+
+State 35
+
+   24 Statement: R_Expr SEMICOLON .
+
+    $default  reduce using rule 24 (Statement)
+
+
+State 36
+
+   36 L_Expr: R_Expr DOT . Ident
+   53 R_Expr: R_Expr DOT . Ident LP Actual_Args RP
+
+    Ident  shift, and go to state 62
+
+
+State 37
+
+   50 R_Expr: R_Expr AND . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 63
+
+
+State 38
+
+   51 R_Expr: R_Expr OR . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 64
+
+
+State 39
+
+   46 R_Expr: R_Expr ATMOST . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 65
+
+
+State 40
+
+   49 R_Expr: R_Expr MORE . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 66
+
+
+State 41
+
+   48 R_Expr: R_Expr ATLEAST . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 67
+
+
+State 42
+
+   47 R_Expr: R_Expr LESS . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 68
+
+
+State 43
+
+   40 R_Expr: R_Expr PLUS . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 69
+
+
+State 44
+
+   41 R_Expr: R_Expr MINUS . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 70
+
+
+State 45
+
+   42 R_Expr: R_Expr TIMES . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 71
+
+
+State 46
+
+   43 R_Expr: R_Expr DIVIDE . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 72
+
+
+State 47
+
+   45 R_Expr: R_Expr EQUALS . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 73
+
+
+State 48
+
+    9 Formal_Args_First: Ident . COLON Ident
+
+    COLON  shift, and go to state 74
+
+
+State 49
+
+    5 Class_Signature: CLASS Ident LP Formal_Args . RP Extends_Ident
+    6                | CLASS Ident LP Formal_Args . RP
+
+    RP  shift, and go to state 75
+
+
+State 50
+
+    8 Formal_Args: Formal_Args_First . Formal_Args_Idents
+
+    $default  reduce using rule 10 (Formal_Args_Idents)
+
+    Formal_Args_Idents  go to state 76
+
+
+State 51
+
+   14 Class_Body: LB Class_Body_Content RB .
+
+    $default  reduce using rule 14 (Class_Body)
+
+
+State 52
+
+   15 Class_Body_Content: Statements Methods .
+   32 Methods: Methods . Method
+
+    DEF  shift, and go to state 77
+
+    $default  reduce using rule 15 (Class_Body_Content)
+
+    Method  go to state 78
+
+
+State 53
+
+   18 Statement_Block: LB . Statements RB
+
+    $default  reduce using rule 16 (Statements)
+
+    Statements  go to state 79
+
+
+State 54
+
+   21 Statement: WHILE R_Expr Statement_Block .
+
+    $default  reduce using rule 21 (Statement)
+
+
+State 55
+
+   19 Statement: IF R_Expr Statement_Block . Elifs Else
+   20          | IF R_Expr Statement_Block . Elifs
+
+    $default  reduce using rule 27 (Elifs)
+
+    Elifs  go to state 80
+
+
+State 56
+
+   25 Statement: RETURN R_Expr SEMICOLON .
+
+    $default  reduce using rule 25 (Statement)
+
+
+State 57
+
+   44 R_Expr: LP R_Expr RP .
+
+    $default  reduce using rule 44 (R_Expr)
+
+
+State 58
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+   56 Actual_Args: R_Expr . R_Exprs
+
+    DOT      shift, and go to state 36
+    AND      shift, and go to state 37
+    OR       shift, and go to state 38
+    ATMOST   shift, and go to state 39
+    MORE     shift, and go to state 40
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    $default  reduce using rule 57 (R_Exprs)
+
+    R_Exprs  go to state 81
+
+
+State 59
+
+   54 R_Expr: Ident LP Actual_Args . RP
+
+    RP  shift, and go to state 82
+
+
+State 60
+
+   22 Statement: L_Expr COLON Ident . GETS R_Expr SEMICOLON
+
+    GETS  shift, and go to state 83
+
+
+State 61
+
+   23 Statement: L_Expr GETS R_Expr . SEMICOLON
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    SEMICOLON  shift, and go to state 84
+    DOT        shift, and go to state 36
+    AND        shift, and go to state 37
+    OR         shift, and go to state 38
+    ATMOST     shift, and go to state 39
+    MORE       shift, and go to state 40
+    ATLEAST    shift, and go to state 41
+    LESS       shift, and go to state 42
+    PLUS       shift, and go to state 43
+    MINUS      shift, and go to state 44
+    TIMES      shift, and go to state 45
+    DIVIDE     shift, and go to state 46
+    EQUALS     shift, and go to state 47
+
+
+State 62
+
+   36 L_Expr: R_Expr DOT Ident .
+   53 R_Expr: R_Expr DOT Ident . LP Actual_Args RP
+
+    LP  shift, and go to state 85
+
+    $default  reduce using rule 36 (L_Expr)
+
+
+State 63
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   50       | R_Expr AND R_Expr .
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT      shift, and go to state 36
+    ATMOST   shift, and go to state 39
+    MORE     shift, and go to state 40
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    $default  reduce using rule 50 (R_Expr)
+
+
+State 64
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   51       | R_Expr OR R_Expr .
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT      shift, and go to state 36
+    ATMOST   shift, and go to state 39
+    MORE     shift, and go to state 40
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    $default  reduce using rule 51 (R_Expr)
+
+
+State 65
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   46       | R_Expr ATMOST R_Expr .
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT      shift, and go to state 36
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    ATMOST  error (nonassociative)
+    MORE    error (nonassociative)
+
+    $default  reduce using rule 46 (R_Expr)
+
+
+State 66
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   49       | R_Expr MORE R_Expr .
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT      shift, and go to state 36
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    ATMOST  error (nonassociative)
+    MORE    error (nonassociative)
+
+    $default  reduce using rule 49 (R_Expr)
+
+
+State 67
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   48       | R_Expr ATLEAST R_Expr .
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT     shift, and go to state 36
+    PLUS    shift, and go to state 43
+    MINUS   shift, and go to state 44
+    TIMES   shift, and go to state 45
+    DIVIDE  shift, and go to state 46
+    EQUALS  shift, and go to state 47
+
+    ATLEAST  error (nonassociative)
+    LESS     error (nonassociative)
+
+    $default  reduce using rule 48 (R_Expr)
+
+
+State 68
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   47       | R_Expr LESS R_Expr .
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT     shift, and go to state 36
+    PLUS    shift, and go to state 43
+    MINUS   shift, and go to state 44
+    TIMES   shift, and go to state 45
+    DIVIDE  shift, and go to state 46
+    EQUALS  shift, and go to state 47
+
+    ATLEAST  error (nonassociative)
+    LESS     error (nonassociative)
+
+    $default  reduce using rule 47 (R_Expr)
+
+
+State 69
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   40       | R_Expr PLUS R_Expr .
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT     shift, and go to state 36
+    EQUALS  shift, and go to state 47
+
+    $default  reduce using rule 40 (R_Expr)
+
+
+State 70
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   41       | R_Expr MINUS R_Expr .
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT     shift, and go to state 36
+    EQUALS  shift, and go to state 47
+
+    $default  reduce using rule 41 (R_Expr)
+
+
+State 71
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   42       | R_Expr TIMES R_Expr .
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT     shift, and go to state 36
+    EQUALS  shift, and go to state 47
+
+    $default  reduce using rule 42 (R_Expr)
+
+
+State 72
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   43       | R_Expr DIVIDE R_Expr .
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT     shift, and go to state 36
+    EQUALS  shift, and go to state 47
+
+    $default  reduce using rule 43 (R_Expr)
+
+
+State 73
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   45       | R_Expr EQUALS R_Expr .
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    DOT  shift, and go to state 36
+
+    EQUALS  error (nonassociative)
+
+    $default  reduce using rule 45 (R_Expr)
+
+
+State 74
+
+    9 Formal_Args_First: Ident COLON . Ident
+
+    Ident  shift, and go to state 86
+
+
+State 75
+
+    5 Class_Signature: CLASS Ident LP Formal_Args RP . Extends_Ident
+    6                | CLASS Ident LP Formal_Args RP .
+
+    EXTENDS  shift, and go to state 87
+
+    $default  reduce using rule 6 (Class_Signature)
+
+    Extends_Ident  go to state 88
+
+
+State 76
+
+    8 Formal_Args: Formal_Args_First Formal_Args_Idents .
+   11 Formal_Args_Idents: Formal_Args_Idents . Formal_Args_Ident
+
+    COMMA  shift, and go to state 89
+
+    $default  reduce using rule 8 (Formal_Args)
+
+    Formal_Args_Ident  go to state 90
+
+
+State 77
+
+   33 Method: DEF . Ident LP Formal_Args RP COLON Ident Statement_Block
+   34       | DEF . Ident LP Formal_Args RP Statement_Block
+
+    Ident  shift, and go to state 91
+
+
+State 78
+
+   32 Methods: Methods Method .
+
+    $default  reduce using rule 32 (Methods)
+
+
+State 79
+
+   17 Statements: Statements . Statement
+   18 Statement_Block: LB Statements . RB
+
+    WHILE       shift, and go to state 11
+    IF          shift, and go to state 12
+    RETURN      shift, and go to state 13
+    LP          shift, and go to state 14
+    RB          shift, and go to state 92
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    Statement  go to state 19
+    L_Expr     go to state 20
+    R_Expr     go to state 21
+
+
+State 80
+
+   19 Statement: IF R_Expr Statement_Block Elifs . Else
+   20          | IF R_Expr Statement_Block Elifs .
+   28 Elifs: Elifs . Elif
+
+    ELSE  shift, and go to state 93
+    ELIF  shift, and go to state 94
+
+    $default  reduce using rule 20 (Statement)
+
+    Elif  go to state 95
+    Else  go to state 96
+
+
+State 81
+
+   56 Actual_Args: R_Expr R_Exprs .
+   58 R_Exprs: R_Exprs . COMMA R_Expr
+
+    COMMA  shift, and go to state 97
+
+    $default  reduce using rule 56 (Actual_Args)
+
+
+State 82
+
+   54 R_Expr: Ident LP Actual_Args RP .
+
+    $default  reduce using rule 54 (R_Expr)
+
+
+State 83
+
+   22 Statement: L_Expr COLON Ident GETS . R_Expr SEMICOLON
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 98
+
+
+State 84
+
+   23 Statement: L_Expr GETS R_Expr SEMICOLON .
+
+    $default  reduce using rule 23 (Statement)
+
+
+State 85
+
+   53 R_Expr: R_Expr DOT Ident LP . Actual_Args RP
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    $default  reduce using rule 55 (Actual_Args)
+
+    L_Expr       go to state 25
+    R_Expr       go to state 58
+    Actual_Args  go to state 99
+
+
+State 86
+
+    9 Formal_Args_First: Ident COLON Ident .
+
+    $default  reduce using rule 9 (Formal_Args_First)
+
+
+State 87
+
+   13 Extends_Ident: EXTENDS . Ident
+
+    Ident  shift, and go to state 100
+
+
+State 88
+
+    5 Class_Signature: CLASS Ident LP Formal_Args RP Extends_Ident .
+
+    $default  reduce using rule 5 (Class_Signature)
+
+
+State 89
+
+   12 Formal_Args_Ident: COMMA . Ident COLON Ident
+
+    Ident  shift, and go to state 101
+
+
+State 90
+
+   11 Formal_Args_Idents: Formal_Args_Idents Formal_Args_Ident .
+
+    $default  reduce using rule 11 (Formal_Args_Idents)
+
+
+State 91
+
+   33 Method: DEF Ident . LP Formal_Args RP COLON Ident Statement_Block
+   34       | DEF Ident . LP Formal_Args RP Statement_Block
+
+    LP  shift, and go to state 102
+
+
+State 92
+
+   18 Statement_Block: LB Statements RB .
+
+    $default  reduce using rule 18 (Statement_Block)
+
+
+State 93
+
+   30 Else: ELSE . Statement_Block
+
+    LB  shift, and go to state 53
+
+    Statement_Block  go to state 103
+
+
+State 94
+
+   29 Elif: ELIF . R_Expr Statement_Block
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 104
+
+
+State 95
+
+   28 Elifs: Elifs Elif .
+
+    $default  reduce using rule 28 (Elifs)
+
+
+State 96
+
+   19 Statement: IF R_Expr Statement_Block Elifs Else .
+
+    $default  reduce using rule 19 (Statement)
+
+
+State 97
+
+   58 R_Exprs: R_Exprs COMMA . R_Expr
+
+    LP          shift, and go to state 14
+    NOT         shift, and go to state 15
+    INT_LIT     shift, and go to state 16
+    STRING_LIT  shift, and go to state 17
+    Ident       shift, and go to state 18
+
+    L_Expr  go to state 25
+    R_Expr  go to state 105
+
+
+State 98
+
+   22 Statement: L_Expr COLON Ident GETS R_Expr . SEMICOLON
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    SEMICOLON  shift, and go to state 106
+    DOT        shift, and go to state 36
+    AND        shift, and go to state 37
+    OR         shift, and go to state 38
+    ATMOST     shift, and go to state 39
+    MORE       shift, and go to state 40
+    ATLEAST    shift, and go to state 41
+    LESS       shift, and go to state 42
+    PLUS       shift, and go to state 43
+    MINUS      shift, and go to state 44
+    TIMES      shift, and go to state 45
+    DIVIDE     shift, and go to state 46
+    EQUALS     shift, and go to state 47
+
+
+State 99
+
+   53 R_Expr: R_Expr DOT Ident LP Actual_Args . RP
+
+    RP  shift, and go to state 107
+
+
+State 100
+
+   13 Extends_Ident: EXTENDS Ident .
+
+    $default  reduce using rule 13 (Extends_Ident)
+
+
+State 101
+
+   12 Formal_Args_Ident: COMMA Ident . COLON Ident
+
+    COLON  shift, and go to state 108
+
+
+State 102
+
+   33 Method: DEF Ident LP . Formal_Args RP COLON Ident Statement_Block
+   34       | DEF Ident LP . Formal_Args RP Statement_Block
+
+    Ident  shift, and go to state 48
+
+    $default  reduce using rule 7 (Formal_Args)
+
+    Formal_Args        go to state 109
+    Formal_Args_First  go to state 50
+
+
+State 103
+
+   30 Else: ELSE Statement_Block .
+
+    $default  reduce using rule 30 (Else)
+
+
+State 104
+
+   29 Elif: ELIF R_Expr . Statement_Block
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+
+    LB       shift, and go to state 53
+    DOT      shift, and go to state 36
+    AND      shift, and go to state 37
+    OR       shift, and go to state 38
+    ATMOST   shift, and go to state 39
+    MORE     shift, and go to state 40
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    Statement_Block  go to state 110
+
+
+State 105
+
+   36 L_Expr: R_Expr . DOT Ident
+   40 R_Expr: R_Expr . PLUS R_Expr
+   41       | R_Expr . MINUS R_Expr
+   42       | R_Expr . TIMES R_Expr
+   43       | R_Expr . DIVIDE R_Expr
+   45       | R_Expr . EQUALS R_Expr
+   46       | R_Expr . ATMOST R_Expr
+   47       | R_Expr . LESS R_Expr
+   48       | R_Expr . ATLEAST R_Expr
+   49       | R_Expr . MORE R_Expr
+   50       | R_Expr . AND R_Expr
+   51       | R_Expr . OR R_Expr
+   53       | R_Expr . DOT Ident LP Actual_Args RP
+   58 R_Exprs: R_Exprs COMMA R_Expr .
+
+    DOT      shift, and go to state 36
+    AND      shift, and go to state 37
+    OR       shift, and go to state 38
+    ATMOST   shift, and go to state 39
+    MORE     shift, and go to state 40
+    ATLEAST  shift, and go to state 41
+    LESS     shift, and go to state 42
+    PLUS     shift, and go to state 43
+    MINUS    shift, and go to state 44
+    TIMES    shift, and go to state 45
+    DIVIDE   shift, and go to state 46
+    EQUALS   shift, and go to state 47
+
+    $default  reduce using rule 58 (R_Exprs)
+
+
+State 106
+
+   22 Statement: L_Expr COLON Ident GETS R_Expr SEMICOLON .
+
+    $default  reduce using rule 22 (Statement)
+
+
+State 107
+
+   53 R_Expr: R_Expr DOT Ident LP Actual_Args RP .
+
+    $default  reduce using rule 53 (R_Expr)
+
+
+State 108
+
+   12 Formal_Args_Ident: COMMA Ident COLON . Ident
+
+    Ident  shift, and go to state 111
+
+
+State 109
+
+   33 Method: DEF Ident LP Formal_Args . RP COLON Ident Statement_Block
+   34       | DEF Ident LP Formal_Args . RP Statement_Block
+
+    RP  shift, and go to state 112
+
+
+State 110
+
+   29 Elif: ELIF R_Expr Statement_Block .
+
+    $default  reduce using rule 29 (Elif)
+
+
+State 111
+
+   12 Formal_Args_Ident: COMMA Ident COLON Ident .
+
+    $default  reduce using rule 12 (Formal_Args_Ident)
+
+
+State 112
+
+   33 Method: DEF Ident LP Formal_Args RP . COLON Ident Statement_Block
+   34       | DEF Ident LP Formal_Args RP . Statement_Block
+
+    COLON  shift, and go to state 113
+    LB     shift, and go to state 53
+
+    Statement_Block  go to state 114
+
+
+State 113
+
+   33 Method: DEF Ident LP Formal_Args RP COLON . Ident Statement_Block
+
+    Ident  shift, and go to state 115
+
+
+State 114
+
+   34 Method: DEF Ident LP Formal_Args RP Statement_Block .
+
+    $default  reduce using rule 34 (Method)
+
+
+State 115
+
+   33 Method: DEF Ident LP Formal_Args RP COLON Ident . Statement_Block
+
+    LB  shift, and go to state 53
+
+    Statement_Block  go to state 116
+
+
+State 116
+
+   33 Method: DEF Ident LP Formal_Args RP COLON Ident Statement_Block .
+
+    $default  reduce using rule 33 (Method)
